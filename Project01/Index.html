@@ -2,38 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <style>
-      html {
-        font-size: 14px;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-    </style>
     <title>Project</title>
-    <link
-      rel="stylesheet"
-      href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common-material.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.material.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.material.mobile.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://demos.telerik.com/kendo-ui/content/shared/styles/examples-offline.css"
-    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.material.mobile.min.css" />
+    <link rel="stylesheet" href="https://demos.telerik.com/kendo-ui/content/shared/styles/examples-offline.css" />
   </head>
 
   <body onload="main()">
     <table>
       <tr>
         <td>
-          <canvas id="webgl" width="400" height="400">
-            Please use a browser that supports canvas
-          </canvas>
+          <canvas id="webgl" width="400" height="400"> Please use a browser that supports canvas </canvas>
         </td>
         <td style="width: 60%">
           <table>
@@ -41,50 +22,30 @@
               <td>
                 <ul id="fieldlist2">
                   <li>
-                    <input
-                      type="radio"
-                      name="axis"
-                      id="all-axis"
-                      class="k-radio"
-                      checked="checked"
-                      onclick="changeAxis()"
-                    />
-                    <label class="k-radio-label" for="all-axis">All-axis</label>
+                    <input type="radio" name="transformFigure" id="translate-fig" class="k-radio" checked="checked" onclick="changeTransform()" />
+                    <label class="k-radio-label" for="translate-fig">Translate</label>
                   </li>
                   <li>
-                    <input
-                      type="radio"
-                      name="axis"
-                      id="x-axis"
-                      class="k-radio"
-                      onclick="changeAxis()"
-                    />
-                    <label class="k-radio-label" for="x-axis">X-axis</label>
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="axis"
-                      id="y-axis"
-                      class="k-radio"
-                      onclick="changeAxis()"
-                    />
-                    <label class="k-radio-label" for="y-axis">Y-axis</label>
-                  </li>
-                  <li>
-                    <input
-                      type="radio"
-                      name="axis"
-                      id="z-axis"
-                      class="k-radio"
-                      onclick="changeAxis()"
-                    />
-                    <label class="k-radio-label" for="z-axis">Z-axis</label>
+                    <input type="radio" name="transformFigure" id="rotate-fig" class="k-radio" onclick="changeTransform()" />
+                    <label class="k-radio-label" for="rotate-fig">Rotate</label>
                   </li>
                 </ul>
               </td>
             </tr>
           </table>
+          <ul id="fieldlist">
+            <li>
+              <label>Scale</label>
+              <input style="width: 80%" id="scale-x" name="x" />
+            </li>
+            <li>
+              <input style="width: 80%" id="scale-y" />
+            </li>
+            <li>
+              <input style="width: 80%" id="scale-z" />
+            </li>
+            <li><label>Color picker</label><input type="color" id="picker" value="#0ff012" onchange="changeColor()" /></li>
+          </ul>
         </td>
       </tr>
       <tr>
@@ -97,38 +58,6 @@
       </tr>
     </table>
 
-    <style>
-      #fieldlist {
-        margin: 0 0 -2em;
-        padding: 0;
-        text-align: center;
-      }
-
-      #fieldlist > li {
-        list-style: none;
-        padding-bottom: 2em;
-      }
-
-      #fieldlist label {
-        display: block;
-        padding-bottom: 1em;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 12px;
-        color: #444;
-      }
-
-      #fieldlist2 {
-        margin: 0 5em 2em;
-        padding: 0;
-      }
-
-      #fieldlist2 li {
-        list-style: none;
-        padding-bottom: 1em;
-      }
-    </style>
-
     <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
     <script src="https://demos.telerik.com/kendo-ui/content/shared/js/console.js"></script>
@@ -137,6 +66,17 @@
     <script src="lib/webgl-debug.js"></script>
     <script src="lib/cuon-utils.js"></script>
     <script src="lib/cuon-matrix.js"></script>
+
+    <script src="utils/draw/drawer.js"></script>
+    <script src="utils/draw/transformFunctions.js"></script>
+
+    <script src="utils/ui/components.js"></script>
+    <script src="utils/ui/events.js"></script>
+
+    <script src="utils/matrices.js"></script>
+    <script src="utils/figures.js"></script>
+    <script src="utils/shaders.js"></script>
+
     <script src="Index.js"></script>
   </body>
 </html>

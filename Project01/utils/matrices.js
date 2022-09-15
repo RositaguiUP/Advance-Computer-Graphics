@@ -38,13 +38,13 @@ function setViewProjMatrices(gl) {
   gl.uniformMatrix4fv(u_ProjMatrix, false, projMatrix.elements);
 }
 
-function setTransformModelMatrix(scale, angles, transValues, translateVec) {
+function setTransformModelMatrix(scale, angles, transValues) {
   var modelMatrix = new Matrix4();
   modelMatrix.setScale(scale[0], scale[1], scale[2]);
   modelMatrix.rotate(angles[0], 1, 0, 0);
   modelMatrix.rotate(angles[1], 0, 1, 0);
   modelMatrix.rotate(angles[2], 0, 0, 1);
-  modelMatrix.translate(translateVec[0] + transValues[0], translateVec[1] + transValues[1], translateVec[2] + transValues[2]);
+  modelMatrix.translate(transValues[0], transValues[1], transValues[2]);
   return modelMatrix;
 }
 

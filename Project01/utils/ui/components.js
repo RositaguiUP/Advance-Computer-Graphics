@@ -49,13 +49,20 @@ $(document).ready(function () {
   });
 });
 
-/*
 $(document).ready(function () {
-  $("#picker").kendoColorPicker({
-    value: "#00ccff",
-    dataRole: "colorpicker",
-    dataOpacity: "true",
-    dataViews: "['gradient']",
+  var data = state.figures;
+  $("#objects").kendoDropDownList({
+    optionLabel: "Select the object to edit...",
+    dataTextField: "name",
+    dataValueField: "id",
+    height: 310,
+    change: onChangeSelectedObject,
+    dataSource: data,
   });
 });
-*/
+
+$(document).ready(function () {
+  $("#btn-delete").kendoButton({
+    click: onDelete,
+  });
+});

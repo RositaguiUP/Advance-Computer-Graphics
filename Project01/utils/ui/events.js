@@ -1,14 +1,29 @@
 function rightClick(ev) {
   state.index++;
+  addNewFigure();
+  var dropdownlist = $("#objects").data("kendoDropDownList");
+  dropdownlist.setDataSource(state.figures);
 }
 
 function leftClick(ev) {
-  addVertex(ev, state.index, state.g_points, state.g_colors);
+  addVertex(ev, state.actualFigure);
+}
+
+function onChangeSelectedObject() {
+  var dropdownlist = $("#objects").data("kendoDropDownList");
+  var selectedIndex = state.figures.findIndex((item) => item.id === parseInt(dropdownlist.value()));
+  state.selectedFigure = state.figures[selectedIndex];
+}
+
+function onDelete(id) {
+  var dropdownlist = $("#objects").data("kendoDropDownList");
+  deleteFigure(parseInt(dropdownlist.value()));
+  dropdownlist.setDataSource(state.figures);
 }
 
 function keydown(ev) {
   state.ui.pressedKeys[ev.keyCode] = true;
-  updateFigure();
+  updateFigure(state.selectedFigure);
 }
 
 function keyup(ev) {
@@ -28,6 +43,14 @@ function changeTransform() {
   }
 }
 
+function sliderOnChange(e, dim) {
+  scaleFigure(state.selectedFigure, e.value, dim);
+}
+
+function sliderOnSlide(e, dim) {
+  scaleFigure(state.selectedFigure, e.value, dim);
+}
+
 function changeColor() {
   var picker = document.getElementById("picker");
   var color = hexToRGB(picker.value, true);
@@ -35,16 +58,8 @@ function changeColor() {
   kendoConsole.log("New color changed: " + picker.value);
 
   kendoConsole.log("New color is: " + color);
-  newColor(color);
+  newColor(state.selectedFigure, color);
   // https://demos.telerik.com/kendo-ui/colorpicker/events
-}
-
-function sliderOnChange(e, dim) {
-  scaleFigure(e.value, dim);
-}
-
-function sliderOnSlide(e, dim) {
-  scaleFigure(e.value, dim);
 }
 
 function hexToRGB(h, isPct) {

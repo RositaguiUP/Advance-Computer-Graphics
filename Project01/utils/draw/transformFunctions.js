@@ -1,86 +1,84 @@
 var trans = {
-  scale: [0.5, 0.5, 0.8],
-  angles: [0, 0, 0],
   angleIncrease: 1,
-  transValues: [0, 0, 0],
   transIncrease: 0.02,
 };
 
-function updateFigure() {
+function updateFigure(fig) {
   if (state.opcTransRot === 1) {
-    rotateFigure();
+    rotateFigure(fig);
   } else {
-    translateFigure();
+    translateFigure(fig);
   }
-  drawCube(state.gl, state.g_colors, trans.scale, trans.angles, trans.transValues);
+  draw(state.gl, state.figures);
 }
 
-function rotateFigure() {
+function rotateFigure(fig) {
   if (state.ui.pressedKeys[87]) {
     // up   | Rotate x axis +
-    trans.angles[0] += trans.angleIncrease;
+    fig.angles[0] += trans.angleIncrease;
   } else if (state.ui.pressedKeys[83]) {
     // down | Rotate x axis -
-    trans.angles[0] -= trans.angleIncrease;
+    fig.angles[0] -= trans.angleIncrease;
   } else if (state.ui.pressedKeys[65]) {
     // left
     if (state.ui.pressedKeys[16]) {
       // Rotate z axis +
-      trans.angles[2] += trans.angleIncrease;
+      fig.angles[2] += trans.angleIncrease;
     } else {
       // Rotate y axis +
-      trans.angles[1] += trans.angleIncrease;
+      fig.angles[1] += trans.angleIncrease;
     }
   } else if (state.ui.pressedKeys[68]) {
     // right
     if (state.ui.pressedKeys[16]) {
       // Rotate z axis -
-      trans.angles[2] -= trans.angleIncrease;
+      fig.angles[2] -= trans.angleIncrease;
     } else {
       // Rotate y axis -
-      trans.angles[1] -= trans.angleIncrease;
+      fig.angles[1] -= trans.angleIncrease;
     }
   }
 }
 
-function translateFigure() {
+function translateFigure(fig) {
   if (state.ui.pressedKeys[87]) {
     // up
     if (!state.ui.pressedKeys[16]) {
       // Translate +z
-      trans.transValues[1] += trans.transIncrease;
+      fig.transValues[1] += trans.transIncrease;
     } else {
       // Translate +y
-      trans.transValues[2] += trans.transIncrease;
+      fig.transValues[2] += trans.transIncrease;
     }
   } else if (state.ui.pressedKeys[83]) {
     // down
     if (!state.ui.pressedKeys[16]) {
       // Translate -z
-      trans.transValues[1] -= trans.transIncrease;
+      fig.transValues[1] -= trans.transIncrease;
     } else {
       // Translate -y
-      trans.transValues[2] -= trans.transIncrease;
+      fig.transValues[2] -= trans.transIncrease;
     }
   } else if (state.ui.pressedKeys[65]) {
     // left  | Translate -x
-    trans.transValues[0] -= trans.transIncrease;
+    fig.transValues[0] -= trans.transIncrease;
   } else if (state.ui.pressedKeys[68]) {
     // right | Translate +x
-    trans.transValues[0] += trans.transIncrease;
+    fig.transValues[0] += trans.transIncrease;
   }
 }
 
-function scaleFigure(scale, dim) {
-  trans.scale[dim] = scale;
-  drawCube(state.gl, state.g_colors, trans.scale, trans.angles, trans.transValues);
+function scaleFigure(fig, scale, dim) {
+  fig.scale[dim] = scale;
+  draw(state.gl, state.figures);
 }
 
-function newColor(color) {
-  for (var i = 0; i < 11; i += 3) {
-    state.g_colors[i] = color[0];
-    state.g_colors[i + 1] = color[1];
-    state.g_colors[i + 2] = color[2];
+function newColor(fig, color) {
+  for (var i = 0; i < fig.colors.length - 1; i += 3) {
+    fig.colors[i] = color[0];
+    fig.colors[i + 1] = color[1];
+    fig.colors[i + 2] = color[2];
   }
-  drawCube(state.gl, state.g_colors, trans.scale, trans.angles, trans.transValues);
+  console.log("Colors: " + fig.colors);
+  draw(state.gl, state.figures);
 }

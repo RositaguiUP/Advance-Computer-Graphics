@@ -6,9 +6,9 @@ var state = {
     opcTransRot: 0,
   },
   index: 0,
-  g_points: [],
-  g_colors: [],
+  figures: [],
   actualFigure: null,
+  selectedFigure: null,
 };
 
 function main() {
@@ -51,10 +51,10 @@ function main() {
     false
   );
 
-  // Reset canvas
+  // Clear canvas
   state.gl.clearColor(0.0, 0.0, 0.0, 1.0);
   state.gl.clear(state.gl.COLOR_BUFFER_BIT);
 
-  //for (var i = 0; i < 12; i++) state.g_colors.push(Math.random());
-  //drawCube(state.gl, state.g_colors, trans.scale, trans.angles, trans.transValues);
+  state.actualFigure = figure;
+  state.figures.push(state.actualFigure);
 }
